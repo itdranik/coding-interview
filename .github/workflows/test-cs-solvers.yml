@@ -1,4 +1,4 @@
-name: .NET Core cs-solvers tests
+name: cs-solvers
 
 on: [push]
 
@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core cs-solvers tests
+    - name: Setup cs-solvers
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
