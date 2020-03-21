@@ -57,7 +57,7 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
 
         public bool TryGet(TKey key, [MaybeNullWhen(false)] out TValue value) {
             if (!_cache.ContainsKey(key)) {
-                value = default;
+                value = default!;
                 return false;
             }
 
