@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ITDranik.CodingInterview.MathExpressions {
+namespace ITDranik.CodingInterview.Solvers.MathExpressions {
 
     public class ShuntingYardAlgorithm {
         public ShuntingYardAlgorithm() {

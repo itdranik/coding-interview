@@ -1,10 +1,10 @@
 using FluentAssertions;
-using ITDranik.CodingInterview.MathExpressions;
+using ITDranik.CodingInterview.Solvers.MathExpressions;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace ITDranik.CodingInterview.MathExpressionsTests {
+namespace ITDranik.CodingInterview.SolversTests.MathExpressions {
     public class IntegrationTests {
         public IntegrationTests() {
             _tokenizer = new Tokenizer();
@@ -13,7 +13,7 @@ namespace ITDranik.CodingInterview.MathExpressionsTests {
         }
 
         [Fact]
-        public void CalculateUsingAllSupportedOperators() {
+        public void AllSupportedOperatorsTest() {
             var actual = Calculate("(1+2)*3 - (2.2*1.1)/0.5 + 0.2");
             var expected = 4.36;
 
@@ -21,26 +21,26 @@ namespace ITDranik.CodingInterview.MathExpressionsTests {
         }
 
         [Fact]
-        public void RedundantOpeningBracket_SyntaxError() {
+        public void RedundantOpeningBracketTest() {
             Action action = () => Calculate("((2 + 3)");
             action.Should().ThrowExactly<SyntaxException>();
         }
 
         [Fact]
-        public void RedundantClosingBracket_SyntaxError() {
+        public void RedundantClosingBracketTest() {
             Action action = () => Calculate("(2+3))");
             action.Should().ThrowExactly<SyntaxException>();
         }
 
         [Fact]
-        public void BracketSubExpression_ChangePrioritization() {
+        public void ExpressionWithBracketsTest() {
             var actual = Calculate(" (2 +2)* 2 ");
             var expected = 8;
             actual.Should().BeApproximately(expected, Precision);
         }
 
         [Fact]
-        public void AdditionMultiplication_MultiplicationCalculatedFirst() {
+        public void OperatorsWithDifferentPrioritiesTest() {
             var actual = Calculate("2+2 * 2");
             var expected = 6;
             actual.Should().BeApproximately(expected, Precision);

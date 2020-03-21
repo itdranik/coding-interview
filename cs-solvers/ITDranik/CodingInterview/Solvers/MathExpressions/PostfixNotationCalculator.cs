@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ITDranik.CodingInterview.MathExpressions {
+namespace ITDranik.CodingInterview.Solvers.MathExpressions {
     public class PostfixNotationCalculator {
         public PostfixNotationCalculator() {
             _operandTokensStack = new Stack<OperandToken>();

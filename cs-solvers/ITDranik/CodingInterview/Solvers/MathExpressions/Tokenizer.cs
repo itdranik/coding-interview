@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ITDranik.CodingInterview.MathExpressions {
+namespace ITDranik.CodingInterview.Solvers.MathExpressions {
 
     public class Tokenizer {
         public Tokenizer() {

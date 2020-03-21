@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MathExpressions\ITDranik.CodingInterview.MathExpressions.csproj" />
+    <ProjectReference Include="..\Solvers\ITDranik.CodingInterview.Solvers.csproj" />
   </ItemGroup>
 
 </Project>
