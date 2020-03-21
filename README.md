@@ -1,4 +1,4 @@
-![cs-solvers](https://github.com/itdranik/coding-interview/workflows/cs-solvers/badge.svg)
+![cs-solvers](https://github.com/itdranik/coding-interview/workflows/cs-solvers/badge.svg?branch=master)
 
 # coding-interview
 Solvers for coding interview problems
