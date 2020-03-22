@@ -30,10 +30,10 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
         }
 
         public void Add(TKey key, TValue value) {
-            if (_cache.Count < _capacity) {
-                AddNewEntry(key, value);
-            } else if (_cache.ContainsKey(key)) {
+            if (_cache.ContainsKey(key)) {
                 UpdateEntry(key, value);
+            } else if (_cache.Count < _capacity) {
+                AddNewEntry(key, value);
             } else {
                 ReplaceOldEntry(key, value);
             }

@@ -30,6 +30,20 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
+        public void OverwriteDoesNotProduceRedundantNodesTest() {
+            var cache = new LruCache<string, int>(1);
+            cache.Add("item1", 1);
+            cache.Add("item1", 1);
+            cache.Add("item2", 2);
+            cache.Add("item3", 3);
+
+            cache.TryGet("item1", out var item1).Should().BeFalse();
+            cache.TryGet("item2", out var item2).Should().BeFalse();
+            cache.TryGet("item3", out var item3).Should().BeTrue();
+            item3.Should().Be(3);
+        }
+
+        [Fact]
         public void RemoveItemTest() {
             var cache = new LruCache<string, int>(3);
             cache.Add("item", 1);
