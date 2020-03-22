@@ -39,6 +39,12 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
+        public void RemoveNonexistentItemTest() {
+            var cache = new LruCache<string, int>(3);
+            cache.Remove("item").Should().BeFalse();
+        }
+
+        [Fact]
         public void ClearCacheTest() {
             var cache = new LruCache<string, int>(3);
             cache.Add("item1", 1);

@@ -74,8 +74,12 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
         }
 
         public bool Remove(TKey key) {
-            _nodes.Remove(_cache[key]);
-            return _cache.Remove(key);
+            if (_cache.TryGetValue(key, out var node)) {
+                _nodes.Remove(node);
+                return _cache.Remove(key);
+            }
+
+            return false;
         }
 
         public void Clear() {
