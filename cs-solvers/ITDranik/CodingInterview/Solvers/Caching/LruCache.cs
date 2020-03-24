@@ -56,21 +56,14 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
         }
 
         public bool TryGet(TKey key, [MaybeNullWhen(false)] out TValue value) {
-            if (!_cache.ContainsKey(key)) {
-                value = default!;
-                return false;
+            if (_cache.TryGetValue(key, out var node)) {
+                value = node.Value.Value;
+                UpdateEntry(key, value);
+                return true;
             }
 
-            value = GetEntry(key);
-            return true;
-        }
-
-        private TValue GetEntry(TKey key) {
-            var node = _cache[key];
-            Remove(key);
-            var entry = node.Value;
-            AddNewEntry(entry.Key, entry.Value);
-            return entry.Value;
+            value = default!;
+            return false;
         }
 
         public bool Remove(TKey key) {
