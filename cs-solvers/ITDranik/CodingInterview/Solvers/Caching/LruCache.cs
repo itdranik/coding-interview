@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace ITDranik.CodingInterview.Solvers.Caching {
     internal class LruItem<TKey, TValue> {
@@ -31,7 +30,7 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
             } else if (_itemNodesByKey.Count < _capacity) {
                 AddNew(key, value);
             } else {
-                Evict(key);
+                Evict();
                 AddNew(key, value);
             }
         }
@@ -46,7 +45,7 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
             AddNew(key, value);
         }
 
-        private void Evict(TKey key) {
+        private void Evict() {
             var minKey = _items.Last.Value.Key;
             Remove(minKey);
         }
