@@ -11,7 +11,7 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void AddToCacheTest() {
+        public void AddItemTest() {
             var cache = new LruCache<string, int>(3);
             cache.Add("item", 1);
 
@@ -20,7 +20,7 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void OverwriteTest() {
+        public void OverwriteItemTest() {
             var cache = new LruCache<string, int>(3);
             cache.Add("item", 1);
             cache.Add("item", 2);
@@ -30,7 +30,7 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void OverwriteDoesNotProduceRedundantNodesTest() {
+        public void EvictionAfterOverwriteTest() {
             var cache = new LruCache<string, int>(1);
             cache.Add("item1", 1);
             cache.Add("item1", 1);
@@ -71,7 +71,7 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void ExceedCapacityTest() {
+        public void EvictItemTest() {
             var cache = new LruCache<string, int>(3);
             cache.Add("item1", 1);
             cache.Add("item2", 2);
@@ -88,7 +88,7 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void ExceedCapacityWithChangedPriorityAfterAccessTest() {
+        public void EvictItemWhenPriorityIsChangedByGetTest() {
             var cache = new LruCache<string, int>(3);
             cache.Add("item1", 1);
             cache.Add("item2", 2);
@@ -106,7 +106,7 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void ExceedCapacityWithChangedPriorityAfterUpdateTest() {
+        public void EvictItemWhenPriorityIsChangedByUpdateTest() {
             var cache = new LruCache<string, int>(3);
             cache.Add("item1", 1);
             cache.Add("item2", 2);

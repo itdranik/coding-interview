@@ -3,18 +3,14 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ITDranik.CodingInterview.Solvers.Caching {
-    internal class LruEntry<TKey, TValue> {
-
-        public LruEntry(TKey key, TValue value) {
-            _key = key;
-            _value = value;
+    internal class LruItem<TKey, TValue> {
+        public LruItem(TKey key, TValue value) {
+            Key = key;
+            Value = value;
         }
 
-        public TKey Key { get { return _key; } }
-        public TValue Value { get { return _value; } }
-
-        private readonly TKey _key;
-        private readonly TValue _value;
+        public TKey Key { get; }
+        public TValue Value { get; }
     }
 
     public class LruCache<TKey, TValue> {
@@ -25,40 +21,40 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
             }
 
             _capacity = capacity;
-            _cache = new Dictionary<TKey, LinkedListNode<LruEntry<TKey, TValue>>>();
-            _nodes = new LinkedList<LruEntry<TKey, TValue>>();
+            _itemNodesByKey = new Dictionary<TKey, LinkedListNode<LruItem<TKey, TValue>>>();
+            _items = new LinkedList<LruItem<TKey, TValue>>();
         }
 
         public void Add(TKey key, TValue value) {
-            if (_cache.ContainsKey(key)) {
-                UpdateEntry(key, value);
-            } else if (_cache.Count < _capacity) {
-                AddNewEntry(key, value);
+            if (_itemNodesByKey.ContainsKey(key)) {
+                Update(key, value);
+            } else if (_itemNodesByKey.Count < _capacity) {
+                AddNew(key, value);
             } else {
-                ReplaceOldEntry(key, value);
+                Evict(key);
+                AddNew(key, value);
             }
         }
 
-        private void AddNewEntry(TKey key, TValue value) {
-            var entry = new LruEntry<TKey, TValue>(key, value);
-            _cache[key] = _nodes.AddFirst(entry);
+        private void AddNew(TKey key, TValue value) {
+            var entry = new LruItem<TKey, TValue>(key, value);
+            _itemNodesByKey[key] = _items.AddFirst(entry);
         }
 
-        private void UpdateEntry(TKey key, TValue value) {
+        private void Update(TKey key, TValue value) {
             Remove(key);
-            AddNewEntry(key, value);
+            AddNew(key, value);
         }
 
-        private void ReplaceOldEntry(TKey key, TValue value) {
-            var minKey = _nodes.Last.Value.Key;
+        private void Evict(TKey key) {
+            var minKey = _items.Last.Value.Key;
             Remove(minKey);
-            AddNewEntry(key, value);
         }
 
         public bool TryGet(TKey key, [MaybeNullWhen(false)] out TValue value) {
-            if (_cache.TryGetValue(key, out var node)) {
+            if (_itemNodesByKey.TryGetValue(key, out var node)) {
                 value = node.Value.Value;
-                UpdateEntry(key, value);
+                Update(key, value);
                 return true;
             }
 
@@ -67,21 +63,21 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
         }
 
         public bool Remove(TKey key) {
-            if (_cache.TryGetValue(key, out var node)) {
-                _nodes.Remove(node);
-                return _cache.Remove(key);
+            if (_itemNodesByKey.TryGetValue(key, out var node)) {
+                _items.Remove(node);
+                return _itemNodesByKey.Remove(key);
             }
 
             return false;
         }
 
         public void Clear() {
-            _nodes.Clear();
-            _cache.Clear();
+            _items.Clear();
+            _itemNodesByKey.Clear();
         }
 
         private readonly int _capacity;
-        private readonly Dictionary<TKey, LinkedListNode<LruEntry<TKey, TValue>>> _cache;
-        private readonly LinkedList<LruEntry<TKey, TValue>> _nodes;
+        private readonly Dictionary<TKey, LinkedListNode<LruItem<TKey, TValue>>> _itemNodesByKey;
+        private readonly LinkedList<LruItem<TKey, TValue>> _items;
     }
 }
