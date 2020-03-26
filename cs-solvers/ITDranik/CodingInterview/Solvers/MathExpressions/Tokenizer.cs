@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -68,7 +69,12 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions {
         }
 
         private IToken CreateOperandToken(string raw) {
-            if (double.TryParse(raw, out double result)) {
+            if (double.TryParse(
+                raw,
+                NumberStyles.Number,
+                CultureInfo.InvariantCulture,
+                out double result
+            )) {
                 return new OperandToken(result);
             }
 
