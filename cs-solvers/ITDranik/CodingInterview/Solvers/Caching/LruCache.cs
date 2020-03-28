@@ -37,7 +37,7 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
 
         private void AddNew(TKey key, TValue value) {
             var item = new LruItem<TKey, TValue>(key, value);
-            _itemNodesByKey[key] = _items.AddFirst(item);
+            _itemNodesByKey[key] = _items.AddLast(item);
         }
 
         private void Update(TKey key, TValue value) {
@@ -46,7 +46,7 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
         }
 
         private void Evict() {
-            var minKey = _items.Last.Value.Key;
+            var minKey = _items.First.Value.Key;
             Remove(minKey);
         }
 
