@@ -7,3 +7,5 @@ The following repository doesn't follow all the best principles and practices as
 provide readable and understandable solutions.
 
 `¯\_(ツ)_/¯`
+
+To continue follow [the link](./cs-solvers/README.md) please.
