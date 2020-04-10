@@ -3,36 +3,48 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace ITDranik.CodingInterview.Solvers.MathExpressions {
+namespace ITDranik.CodingInterview.Solvers.MathExpressions
+{
 
-    public class Tokenizer {
-        public Tokenizer() {
+    public class Tokenizer
+    {
+        public Tokenizer()
+        {
             _valueTokenBuilder = new StringBuilder();
             _infixNotationTokens = new List<IToken>();
         }
 
-        public IEnumerable<IToken> Parse(string expression) {
+        public IEnumerable<IToken> Parse(string expression)
+        {
             Reset();
-            foreach (char next in expression) {
+            foreach (char next in expression)
+            {
                 FeedCharacter(next);
             }
             return GetResult();
         }
 
-        private void Reset() {
+        private void Reset()
+        {
             _valueTokenBuilder.Clear();
             _infixNotationTokens.Clear();
         }
 
-        private void FeedCharacter(char next) {
-            if (IsSpacingCharacter(next)) {
-                if (_valueTokenBuilder.Length > 0) {
+        private void FeedCharacter(char next)
+        {
+            if (IsSpacingCharacter(next))
+            {
+                if (_valueTokenBuilder.Length > 0)
+                {
                     var token = CreateOperandToken(_valueTokenBuilder.ToString());
                     _valueTokenBuilder.Clear();
                     _infixNotationTokens.Add(token);
                 }
-            } else if (IsOperatorCharacter(next)) {
-                if (_valueTokenBuilder.Length > 0) {
+            }
+            else if (IsOperatorCharacter(next))
+            {
+                if (_valueTokenBuilder.Length > 0)
+                {
                     var token = CreateOperandToken(_valueTokenBuilder.ToString());
                     _valueTokenBuilder.Clear();
                     _infixNotationTokens.Add(token);
@@ -40,13 +52,17 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions {
 
                 var operatorToken = CreateOperatorToken(next);
                 _infixNotationTokens.Add(operatorToken);
-            } else {
+            }
+            else
+            {
                 _valueTokenBuilder.Append(next);
             }
         }
 
-        private bool IsOperatorCharacter(char c) {
-            switch (c) {
+        private bool IsOperatorCharacter(char c)
+        {
+            switch (c)
+            {
                 case '(':
                 case ')':
                 case '+':
@@ -59,43 +75,47 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions {
             }
         }
 
-        private bool IsSpacingCharacter(char c) {
-            switch (c) {
-                case ' ':
-                    return true;
-                default:
-                    return false;
-            }
+        private bool IsSpacingCharacter(char c)
+        {
+            return c switch
+            {
+                ' ' => true,
+                _ => false,
+            };
         }
 
-        private IToken CreateOperandToken(string raw) {
+        private IToken CreateOperandToken(string raw)
+        {
             if (double.TryParse(
                 raw,
                 NumberStyles.Number,
                 CultureInfo.InvariantCulture,
-                out double result
-            )) {
+                out double result))
+            {
                 return new OperandToken(result);
             }
 
             throw new SyntaxException($"The operand {raw} has an invalid format.");
         }
 
-        private OperatorToken CreateOperatorToken(char c) {
-            switch (c) {
-                case '(': return new OperatorToken(OperatorType.OpeningBracket);
-                case ')': return new OperatorToken(OperatorType.ClosingBracket);
-                case '+': return new OperatorToken(OperatorType.Addition);
-                case '-': return new OperatorToken(OperatorType.Subtraction);
-                case '*': return new OperatorToken(OperatorType.Multiplication);
-                case '/': return new OperatorToken(OperatorType.Division);
-                default:
-                    throw new SyntaxException($"There's no a suitable operator for the char {c}");
-            }
+        private OperatorToken CreateOperatorToken(char c)
+        {
+            return c switch
+            {
+                '(' => new OperatorToken(OperatorType.OpeningBracket),
+                ')' => new OperatorToken(OperatorType.ClosingBracket),
+                '+' => new OperatorToken(OperatorType.Addition),
+                '-' => new OperatorToken(OperatorType.Subtraction),
+                '*' => new OperatorToken(OperatorType.Multiplication),
+                '/' => new OperatorToken(OperatorType.Division),
+                _ => throw new SyntaxException($"There's no a suitable operator for the char {c}"),
+            };
         }
 
-        private IEnumerable<IToken> GetResult() {
-            if (_valueTokenBuilder.Length > 0) {
+        private IEnumerable<IToken> GetResult()
+        {
+            if (_valueTokenBuilder.Length > 0)
+            {
                 var token = CreateOperandToken(_valueTokenBuilder.ToString());
                 _valueTokenBuilder.Clear();
                 _infixNotationTokens.Add(token);

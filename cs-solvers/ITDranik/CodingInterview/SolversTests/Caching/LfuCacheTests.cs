@@ -2,16 +2,20 @@ using FluentAssertions;
 using ITDranik.CodingInterview.Solvers.Caching;
 using Xunit;
 
-namespace ITDranik.CodingInterview.SolversTests.Caching {
-    public class LfuCacheTests {
+namespace ITDranik.CodingInterview.SolversTests.Caching
+{
+    public class LfuCacheTests
+    {
         [Fact]
-        public void GetNonexistentItemTest() {
+        public void GetNonexistentItemTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.TryGet("item", out var _).Should().BeFalse();
         }
 
         [Fact]
-        public void AddItemTest() {
+        public void AddItemTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Add("item", 1);
 
@@ -20,7 +24,8 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void OverwriteItemTest() {
+        public void OverwriteItemTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Add("item", 1);
             cache.Add("item", 2);
@@ -30,7 +35,8 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void RemoveItemTest() {
+        public void RemoveItemTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Add("item", 1);
             cache.Remove("item").Should().BeTrue();
@@ -39,13 +45,15 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void RemoveNonexistentItemTest() {
+        public void RemoveNonexistentItemTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Remove("item").Should().BeFalse();
         }
 
         [Fact]
-        public void ClearCacheTest() {
+        public void ClearCacheTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Add("item1", 1);
             cache.Add("item2", 2);
@@ -57,14 +65,15 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void EvictItemTest() {
+        public void EvictItemTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Add("item1", 1);
             cache.Add("item2", 2);
             cache.Add("item3", 3);
             cache.Add("item4", 4);
 
-            cache.TryGet("item1", out var item1).Should().BeFalse();
+            cache.TryGet("item1", out var _).Should().BeFalse();
             cache.TryGet("item2", out var item2).Should().BeTrue();
             item2.Should().Be(2);
             cache.TryGet("item3", out var item3).Should().BeTrue();
@@ -74,7 +83,8 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void EvictItemWhenPriorityIsChangedByGetTest() {
+        public void EvictItemWhenPriorityIsChangedByGetTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Add("item1", 1);
             cache.Add("item2", 2);
@@ -84,7 +94,7 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
 
             cache.TryGet("item1", out var item1).Should().BeTrue();
             item1.Should().Be(1);
-            cache.TryGet("item2", out var item2).Should().BeFalse();
+            cache.TryGet("item2", out var _).Should().BeFalse();
             cache.TryGet("item3", out var item3).Should().BeTrue();
             item3.Should().Be(3);
             cache.TryGet("item4", out var item4).Should().BeTrue();
@@ -92,7 +102,8 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void EvictItemWhenPriorityIsChangedByUpdateTest() {
+        public void EvictItemWhenPriorityIsChangedByUpdateTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Add("item1", 1);
             cache.Add("item2", 2);
@@ -102,7 +113,7 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
 
             cache.TryGet("item1", out var item1).Should().BeTrue();
             item1.Should().Be(1);
-            cache.TryGet("item2", out var item2).Should().BeFalse();
+            cache.TryGet("item2", out var _).Should().BeFalse();
             cache.TryGet("item3", out var item3).Should().BeTrue();
             item3.Should().Be(3);
             cache.TryGet("item4", out var item4).Should().BeTrue();
@@ -110,7 +121,8 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
         }
 
         [Fact]
-        public void EvictItemWithLowestFrequencyTest() {
+        public void EvictItemWithLowestFrequencyTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Add("item1", 1);
             cache.Add("item1", 1);
@@ -123,13 +135,14 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
             item1.Should().Be(1);
             cache.TryGet("item2", out var item2).Should().BeTrue();
             item2.Should().Be(2);
-            cache.TryGet("item3", out var item3).Should().BeFalse();
+            cache.TryGet("item3", out var _).Should().BeFalse();
             cache.TryGet("item4", out var item4).Should().BeTrue();
             item4.Should().Be(4);
         }
 
         [Fact]
-        public void EvictLeastRecentlyUsedItemWhenFrequenciesAreEqualTest() {
+        public void EvictLeastRecentlyUsedItemWhenFrequenciesAreEqualTest()
+        {
             var cache = new LfuCache<string, int>(3);
             cache.Add("item1", 1);
             cache.Add("item1", 1);
@@ -139,7 +152,7 @@ namespace ITDranik.CodingInterview.SolversTests.Caching {
             cache.Add("item3", 3);
             cache.Add("item4", 4);
 
-            cache.TryGet("item1", out var item1).Should().BeFalse();
+            cache.TryGet("item1", out var _).Should().BeFalse();
             cache.TryGet("item2", out var item2).Should().BeTrue();
             item2.Should().Be(2);
             cache.TryGet("item3", out var item3).Should().BeTrue();

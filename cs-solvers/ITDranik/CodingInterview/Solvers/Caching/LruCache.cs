@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ITDranik.CodingInterview.Solvers.Caching {
-    internal class LruItem<TKey, TValue> {
-        public LruItem(TKey key, TValue value) {
+namespace ITDranik.CodingInterview.Solvers.Caching
+{
+    internal class LruItem<TKey, TValue>
+    {
+        public LruItem(TKey key, TValue value)
+        {
             Key = key;
             Value = value;
         }
@@ -12,9 +15,12 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
         public TValue Value { get; }
     }
 
-    public class LruCache<TKey, TValue> {
-        public LruCache(int capacity) {
-            if (capacity <= 0) {
+    public class LruCache<TKey, TValue>
+    {
+        public LruCache(int capacity)
+        {
+            if (capacity <= 0)
+            {
                 var exMessage = $"must be a positive value";
                 throw new System.ArgumentOutOfRangeException(nameof(capacity), capacity, exMessage);
             }
@@ -24,34 +30,45 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
             _items = new LinkedList<LruItem<TKey, TValue>>();
         }
 
-        public void Add(TKey key, TValue value) {
-            if (_itemNodesByKey.ContainsKey(key)) {
+        public void Add(TKey key, TValue value)
+        {
+            if (_itemNodesByKey.ContainsKey(key))
+            {
                 Update(key, value);
-            } else if (_itemNodesByKey.Count < _capacity) {
+            }
+            else if (_itemNodesByKey.Count < _capacity)
+            {
                 AddNew(key, value);
-            } else {
+            }
+            else
+            {
                 Evict();
                 AddNew(key, value);
             }
         }
 
-        private void AddNew(TKey key, TValue value) {
+        private void AddNew(TKey key, TValue value)
+        {
             var item = new LruItem<TKey, TValue>(key, value);
             _itemNodesByKey[key] = _items.AddLast(item);
         }
 
-        private void Update(TKey key, TValue value) {
+        private void Update(TKey key, TValue value)
+        {
             Remove(key);
             AddNew(key, value);
         }
 
-        private void Evict() {
+        private void Evict()
+        {
             var minKey = _items.First.Value.Key;
             Remove(minKey);
         }
 
-        public bool TryGet(TKey key, [MaybeNullWhen(false)] out TValue value) {
-            if (_itemNodesByKey.TryGetValue(key, out var node)) {
+        public bool TryGet(TKey key, [MaybeNullWhen(false)] out TValue value)
+        {
+            if (_itemNodesByKey.TryGetValue(key, out var node))
+            {
                 value = node.Value.Value;
                 Update(key, value);
                 return true;
@@ -61,8 +78,10 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
             return false;
         }
 
-        public bool Remove(TKey key) {
-            if (_itemNodesByKey.TryGetValue(key, out var node)) {
+        public bool Remove(TKey key)
+        {
+            if (_itemNodesByKey.TryGetValue(key, out var node))
+            {
                 _items.Remove(node);
                 return _itemNodesByKey.Remove(key);
             }
@@ -70,7 +89,8 @@ namespace ITDranik.CodingInterview.Solvers.Caching {
             return false;
         }
 
-        public void Clear() {
+        public void Clear()
+        {
             _items.Clear();
             _itemNodesByKey.Clear();
         }

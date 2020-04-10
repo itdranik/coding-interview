@@ -1,30 +1,38 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ITDranik.CodingInterview.Solvers.MathExpressions {
+namespace ITDranik.CodingInterview.Solvers.MathExpressions
+{
 
-    public class ShuntingYardAlgorithm {
-        public ShuntingYardAlgorithm() {
+    public class ShuntingYardAlgorithm
+    {
+        public ShuntingYardAlgorithm()
+        {
             _operatorsStack = new Stack<OperatorToken>();
             _postfixNotationTokens = new List<IToken>();
         }
 
-        public IEnumerable<IToken> Apply(IEnumerable<IToken> infixNotationTokens) {
+        public IEnumerable<IToken> Apply(IEnumerable<IToken> infixNotationTokens)
+        {
             Reset();
-            foreach (var token in infixNotationTokens) {
+            foreach (var token in infixNotationTokens)
+            {
                 ProcessToken(token);
             }
             return GetResult();
         }
 
-        private void Reset() {
+        private void Reset()
+        {
             _operatorsStack.Clear();
             _postfixNotationTokens.Clear();
         }
 
 
-        private void ProcessToken(IToken token) {
-            switch (token) {
+        private void ProcessToken(IToken token)
+        {
+            switch (token)
+            {
                 case OperandToken operandToken:
                     StoreOperand(operandToken);
                     break;
@@ -32,22 +40,25 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions {
                     ProcessOperator(operatorToken);
                     break;
                 default:
-                    var exMessage = $"An unknown token type: {token.GetType().ToString()}.";
+                    var exMessage = $"An unknown token type: {token.GetType()}.";
                     throw new SyntaxException(exMessage);
             }
         }
 
-        private void StoreOperand(OperandToken operandToken) {
+        private void StoreOperand(OperandToken operandToken)
+        {
             _postfixNotationTokens.Add(operandToken);
         }
 
-        private void ProcessOperator(OperatorToken operatorToken) {
-            switch (operatorToken.OperatorType) {
+        private void ProcessOperator(OperatorToken operatorToken)
+        {
+            switch (operatorToken.OperatorType)
+            {
                 case OperatorType.OpeningBracket:
                     PushOpeningBracket(operatorToken);
                     break;
                 case OperatorType.ClosingBracket:
-                    PushClosingBracket(operatorToken);
+                    PushClosingBracket();
                     break;
                 default:
                     PushOperator(operatorToken);
@@ -55,16 +66,20 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions {
             }
         }
 
-        private void PushOpeningBracket(OperatorToken operatorToken) {
+        private void PushOpeningBracket(OperatorToken operatorToken)
+        {
             _operatorsStack.Push(operatorToken);
         }
 
-        private void PushClosingBracket(OperatorToken operatorToken) {
+        private void PushClosingBracket()
+        {
             bool openingBracketFound = false;
 
-            while (_operatorsStack.Count > 0) {
+            while (_operatorsStack.Count > 0)
+            {
                 var stackOperatorToken = _operatorsStack.Pop();
-                if (stackOperatorToken.OperatorType == OperatorType.OpeningBracket) {
+                if (stackOperatorToken.OperatorType == OperatorType.OpeningBracket)
+                {
                     openingBracketFound = true;
                     break;
                 }
@@ -72,22 +87,27 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions {
                 _postfixNotationTokens.Add(stackOperatorToken);
             }
 
-            if (!openingBracketFound) {
+            if (!openingBracketFound)
+            {
                 throw new SyntaxException("An unexpected closing bracket.");
             }
         }
 
-        private void PushOperator(OperatorToken operatorToken) {
+        private void PushOperator(OperatorToken operatorToken)
+        {
             var operatorPriority = GetOperatorPriority(operatorToken);
 
-            while (_operatorsStack.Count > 0) {
+            while (_operatorsStack.Count > 0)
+            {
                 var stackOperatorToken = _operatorsStack.Peek();
-                if (stackOperatorToken.OperatorType == OperatorType.OpeningBracket) {
+                if (stackOperatorToken.OperatorType == OperatorType.OpeningBracket)
+                {
                     break;
                 }
 
                 var stackOperatorPriority = GetOperatorPriority(stackOperatorToken);
-                if (stackOperatorPriority < operatorPriority) {
+                if (stackOperatorPriority < operatorPriority)
+                {
                     break;
                 }
 
@@ -97,8 +117,10 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions {
             _operatorsStack.Push(operatorToken);
         }
 
-        private int GetOperatorPriority(OperatorToken operatorToken) {
-            switch (operatorToken.OperatorType) {
+        private int GetOperatorPriority(OperatorToken operatorToken)
+        {
+            switch (operatorToken.OperatorType)
+            {
                 case OperatorType.OpeningBracket:
                     return 0;
                 case OperatorType.Addition:
@@ -114,10 +136,13 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions {
             }
         }
 
-        private List<IToken> GetResult() {
-            while (_operatorsStack.Count > 0) {
+        private List<IToken> GetResult()
+        {
+            while (_operatorsStack.Count > 0)
+            {
                 var token = _operatorsStack.Pop();
-                if (token.OperatorType == OperatorType.OpeningBracket) {
+                if (token.OperatorType == OperatorType.OpeningBracket)
+                {
                     throw new SyntaxException("A redundant opening bracket.");
                 }
                 _postfixNotationTokens.Add(token);

@@ -1,18 +1,20 @@
-namespace ITDranik.CodingInterview.Solvers.MathExpressions {
+namespace ITDranik.CodingInterview.Solvers.MathExpressions
+{
 
-    public interface IToken {}
+    public interface IToken { }
 
-    public class OperandToken : IToken {
-        public double Value { get { return _value; } }
+    public class OperandToken : IToken
+    {
+        public double Value { get; }
 
-        public OperandToken(double value) {
-            _value = value;
+        public OperandToken(double value)
+        {
+            Value = value;
         }
-
-        private readonly double _value;
     }
 
-    public enum OperatorType {
+    public enum OperatorType
+    {
         Addition,
         Subtraction,
         Multiplication,
@@ -21,13 +23,13 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions {
         ClosingBracket
     }
 
-    public class OperatorToken : IToken {
-        public OperatorType OperatorType { get { return _operatorType; } }
+    public class OperatorToken : IToken
+    {
+        public OperatorType OperatorType { get; }
 
-        public OperatorToken(OperatorType operatorType) {
-            _operatorType = operatorType;
+        public OperatorToken(OperatorType operatorType)
+        {
+            OperatorType = operatorType;
         }
-
-        private readonly OperatorType _operatorType;
     }
 }

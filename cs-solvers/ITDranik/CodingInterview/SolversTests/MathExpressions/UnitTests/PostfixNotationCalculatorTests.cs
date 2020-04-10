@@ -4,14 +4,15 @@ using ITDranik.CodingInterview.Solvers.MathExpressions;
 using Xunit;
 using System;
 
-namespace ITDranik.CodingInterview.SolversTests.MathExpressions.UnitTests {
-    public class PostfixNotationCalculatorTests {
+namespace ITDranik.CodingInterview.SolversTests.MathExpressions.UnitTests
+{
+    public class PostfixNotationCalculatorTests
+    {
 
         private const double Precision = 1e-7;
 
-        private PostfixNotationCalculator _calculator;
-
-        public PostfixNotationCalculatorTests() {
+        public PostfixNotationCalculatorTests()
+        {
             _calculator = new PostfixNotationCalculator();
         }
 
@@ -25,7 +26,8 @@ namespace ITDranik.CodingInterview.SolversTests.MathExpressions.UnitTests {
             double rhs,
             OperatorType operatorType,
             double expectedValue
-        ) {
+        )
+        {
             var actual = _calculator.Calculate(new List<IToken>() {
                 new OperandToken(lhs),
                 new OperandToken(rhs),
@@ -36,7 +38,8 @@ namespace ITDranik.CodingInterview.SolversTests.MathExpressions.UnitTests {
         }
 
         [Fact]
-        public void StackingOperandsTest() {
+        public void StackingOperandsTest()
+        {
             var actual = _calculator.Calculate(new List<IToken>() {
                 new OperandToken(4),
                 new OperandToken(2),
@@ -51,31 +54,38 @@ namespace ITDranik.CodingInterview.SolversTests.MathExpressions.UnitTests {
         }
 
         [Fact]
-        public void EmptyExpressionFailureTest() {
-            ExpectSyntaxException(() => _calculator.Calculate(new List<IToken>() {}));
+        public void EmptyExpressionFailureTest()
+        {
+            ExpectSyntaxException(() => _calculator.Calculate(new List<IToken>() { }));
         }
 
         [Fact]
-        public void RedundantOperatorFailureTest() {
+        public void RedundantOperatorFailureTest()
+        {
             ExpectSyntaxException(() => _calculator.Calculate(new List<IToken>() {
                 new OperatorToken(OperatorType.Addition)
             }));
         }
 
         [Fact]
-        public void RedundantOperandFailureTest() {
+        public void RedundantOperandFailureTest()
+        {
             ExpectSyntaxException(() => _calculator.Calculate(new List<IToken>() {
                 new OperandToken(1),
                 new OperandToken(2)
             }));
         }
 
-        private void ExpectSyntaxException(Action action) {
+        private void ExpectSyntaxException(Action action)
+        {
             action.Should().ThrowExactly<SyntaxException>();
         }
 
-        private void Compare(OperandToken actual, OperandToken expected) {
+        private void Compare(OperandToken actual, OperandToken expected)
+        {
             actual.Value.Should().BeApproximately(expected.Value, Precision);
         }
+
+        private readonly PostfixNotationCalculator _calculator;
     }
 }
