@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using ITDranik.CodingInterview.Solvers.Geometry;
@@ -5,25 +6,35 @@ using Xunit;
 
 namespace ITDranik.CodingInterview.SolversTests.Geometry
 {
+    using SolverMethod = Func<List<Point<double>>, (Line<double>?, int)>;
+
     public class MaxPointsOnLineTests
     {
-        public MaxPointsOnLineTests()
+        public static IEnumerable<object[]> GetSolvers()
         {
-            _solver = new MaxPointsOnLine();
+            var solver = new MaxPointsOnLine();
+
+            SolverMethod findLine = (points) => solver.FindLine(points);
+            yield return new object[] { findLine };
+
+            SolverMethod findLineFast = (points) => solver.FindLineFast(points);
+            yield return new object[] { findLineFast };
         }
 
-        [Fact]
-        public void NoPointsTest()
+        [Theory]
+        [MemberData(nameof(GetSolvers))]
+        public void NoPointsTest(SolverMethod solve)
         {
-            (var line, var pointsCount) = _solver.FindLine(new List<Point<double>>());
+            (var line, var pointsCount) = solve(new List<Point<double>>());
             line.Should().BeNull();
             pointsCount.Should().Be(0);
         }
 
-        [Fact]
-        public void SeveralEqualPointsTest()
+        [Theory]
+        [MemberData(nameof(GetSolvers))]
+        public void SeveralEqualPointsTest(SolverMethod solve)
         {
-            (var line, var pointsCount) = _solver.FindLine(new List<Point<double>> {
+            (var line, var pointsCount) = solve(new List<Point<double>> {
                 new Point<double>(1, 1),
                 new Point<double>(1, 1),
                 new Point<double>(1, 1)
@@ -32,10 +43,11 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
             pointsCount.Should().Be(0);
         }
 
-        [Fact]
-        public void TwoPointsTest()
+        [Theory]
+        [MemberData(nameof(GetSolvers))]
+        public void TwoPointsTest(SolverMethod solve)
         {
-            (var line, var pointsCount) = _solver.FindLine(new List<Point<double>> {
+            (var line, var pointsCount) = solve(new List<Point<double>> {
                 new Point<double>(1, 2),
                 new Point<double>(-3, 5)
             });
@@ -44,10 +56,11 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
             pointsCount.Should().Be(2);
         }
 
-        [Fact]
-        public void MultipleEqualPointsOnLineTest()
+        [Theory]
+        [MemberData(nameof(GetSolvers))]
+        public void MultipleEqualPointsOnLineTest(SolverMethod solve)
         {
-            (var line, var pointsCount) = _solver.FindLine(new List<Point<double>> {
+            (var line, var pointsCount) = solve(new List<Point<double>> {
                 new Point<double>(1, 2),
                 new Point<double>(1, 2),
                 new Point<double>(-3, 5),
@@ -58,10 +71,11 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
             pointsCount.Should().Be(4);
         }
 
-        [Fact]
-        public void SeveralLinesTest()
+        [Theory]
+        [MemberData(nameof(GetSolvers))]
+        public void SeveralLinesTest(SolverMethod solve)
         {
-            (var line, var pointsCount) = _solver.FindLine(new List<Point<double>> {
+            (var line, var pointsCount) = solve(new List<Point<double>> {
                 new Point<double>(1, 1),
                 new Point<double>(4, 1),
                 new Point<double>(4, 5),
@@ -72,7 +86,5 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
             line!.Value.IsAlmostSame(new Line<double>(1, -2, 1));
             pointsCount.Should().Be(3);
         }
-
-        private readonly MaxPointsOnLine _solver;
     }
 }

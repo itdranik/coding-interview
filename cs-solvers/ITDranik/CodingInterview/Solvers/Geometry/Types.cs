@@ -14,6 +14,18 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
         public T Y { get; }
     }
 
+    public readonly struct Vector<T> where T : struct
+    {
+        public Vector(T x, T y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public T X { get; }
+        public T Y { get; }
+    }
+
     public readonly struct Line<T> where T : struct
     {
         public Line(T a, T b, T c)
@@ -42,6 +54,13 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
         {
             return Math.Abs(current.X - other.X) < precision
                 && Math.Abs(current.Y - other.Y) < precision;
+        }
+
+        public static bool IsEqual(
+            this Point<long> current,
+            Point<long> other)
+        {
+            return current.X == other.X && current.Y == other.Y;
         }
     }
 
@@ -81,6 +100,19 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
         }
     }
 
+    public static class VectorsFactory
+    {
+        public static Vector<double> BuildVector(Point<double> p1, Point<double> p2)
+        {
+            return new Vector<double>(p2.X - p1.X, p2.Y - p1.Y);
+        }
+
+        public static Vector<long> BuildVector(Point<long> p1, Point<long> p2)
+        {
+            return new Vector<long>(p2.X - p1.X, p2.Y - p1.Y);
+        }
+    }
+
     public static class LinesFactory
     {
         public static Line<double> BuildLine(Point<double> p1, Point<double> p2)
@@ -90,6 +122,33 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             var c = p2.X * p1.Y - p1.X * p2.Y;
 
             return new Line<double>(a, b, c);
+        }
+
+        public static Line<double> BuildLine(Point<double> p, Vector<double> v)
+        {
+            double a = v.Y;
+            double b = -v.X;
+            double c = -a * p.X - b * p.Y;
+
+            return new Line<double>(a, b, c);
+        }
+
+        public static Line<long> BuildLine(Point<long> p1, Point<long> p2)
+        {
+            var a = p2.Y - p1.Y;
+            var b = p1.X - p2.X;
+            var c = p2.X * p1.Y - p1.X * p2.Y;
+
+            return new Line<long>(a, b, c);
+        }
+
+        public static Line<long> BuildLine(Point<long> p, Vector<long> v)
+        {
+            long a = v.Y;
+            long b = v.X;
+            long c = -a * p.X - b * p.Y;
+
+            return new Line<long>(a, b, c);
         }
     }
 }
