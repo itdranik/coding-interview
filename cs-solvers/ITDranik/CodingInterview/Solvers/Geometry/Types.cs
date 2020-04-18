@@ -133,6 +133,12 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             return new Line<double>(a, b, c);
         }
 
+        public static Line<double> BuildAnyLine(Point<double> p)
+        {
+            var v = new Vector<double>(1, 1);
+            return BuildLine(p, v);
+        }
+
         public static Line<long> BuildLine(Point<long> p1, Point<long> p2)
         {
             var a = p2.Y - p1.Y;
@@ -149,6 +155,12 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             long c = -a * p.X - b * p.Y;
 
             return new Line<long>(a, b, c);
+        }
+
+        public static Line<long> BuildAnyLine(Point<long> p)
+        {
+            var v = new Vector<long>(1, 1);
+            return BuildLine(p, v);
         }
     }
 }

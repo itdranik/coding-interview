@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ITDranik.CodingInterview.SolversTests.Geometry
 {
-    using SolverMethod = Func<List<Point<double>>, (Line<double>?, int)>;
+    using SolverMethod = Func<List<Point<double>>, (Line<double>, int)>;
 
     public class MaxPointsOnLineTests
     {
@@ -25,8 +25,7 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
         [MemberData(nameof(GetSolvers))]
         public void NoPointsTest(SolverMethod solve)
         {
-            (var line, var pointsCount) = solve(new List<Point<double>>());
-            line.Should().BeNull();
+            (var _, var pointsCount) = solve(new List<Point<double>>());
             pointsCount.Should().Be(0);
         }
 
@@ -39,8 +38,8 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
                 new Point<double>(1, 1),
                 new Point<double>(1, 1)
             });
-            line.Should().BeNull();
-            pointsCount.Should().Be(0);
+            line.AlmostContains(new Point<double>(1, 1));
+            pointsCount.Should().Be(3);
         }
 
         [Theory]
@@ -52,7 +51,7 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
                 new Point<double>(-3, 5)
             });
 
-            line!.Value.IsAlmostSame(new Line<double>(4, 5, -14));
+            line.IsAlmostSame(new Line<double>(4, 5, -14));
             pointsCount.Should().Be(2);
         }
 
@@ -67,7 +66,7 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
                 new Point<double>(-3, 5)
             });
 
-            line!.Value.IsAlmostSame(new Line<double>(4, 5, -14));
+            line.IsAlmostSame(new Line<double>(4, 5, -14));
             pointsCount.Should().Be(4);
         }
 
@@ -83,7 +82,7 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
                 new Point<double>(7, 4)
             });
 
-            line!.Value.IsAlmostSame(new Line<double>(1, -2, 1));
+            line.IsAlmostSame(new Line<double>(1, -2, 1));
             pointsCount.Should().Be(3);
         }
     }

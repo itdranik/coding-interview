@@ -9,10 +9,16 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
     {
         public const int DefaultDigitsPrecision = 3;
 
-        public (Line<double>? Line, int PointsCount) FindLine(List<Point<double>> points)
+        public (Line<double> Line, int PointsCount) FindLine(List<Point<double>> points)
         {
+            if (AllPointsAreAlmostEqual(points))
+            {
+                var line = LinesFactory.BuildAnyLine(points.FirstOrDefault());
+                return (Line: line, PointsCount: points.Count);
+            }
+
             var maxPointsOnLineCount = 0;
-            Line<double>? bestLine = null;
+            Line<double> bestLine = default;
 
             foreach (var firstPoint in points)
             {
@@ -24,15 +30,7 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
                     }
 
                     var line = LinesFactory.BuildLine(firstPoint, secondPoint);
-                    int pointsOnLineCount = 0;
-
-                    foreach (var point in points)
-                    {
-                        if (line.AlmostContains(point))
-                        {
-                            ++pointsOnLineCount;
-                        }
-                    }
+                    var pointsOnLineCount = points.Count((p) => line.AlmostContains(p));
 
                     if (pointsOnLineCount > maxPointsOnLineCount)
                     {
@@ -45,7 +43,7 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             return (Line: bestLine, PointsCount: maxPointsOnLineCount);
         }
 
-        public (Line<double>? line, int PointsCount) FindLineFast(
+        public (Line<double> line, int PointsCount) FindLineFast(
             List<Point<double>> points,
             int digitsPrecision = DefaultDigitsPrecision)
         {
@@ -58,85 +56,98 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
 
             (var longOrigin, var longDirection, var pointsCount) = FindVectorFast(longPoints);
 
-            if (!longOrigin.HasValue || !longDirection.HasValue)
-            {
-                return (null, 0);
-            }
-
             var origin = new Point<double>(
-                longOrigin.Value.X / multiplier,
-                longOrigin.Value.Y / multiplier
+                longOrigin.X / multiplier,
+                longOrigin.Y / multiplier
             );
             var direction = new Vector<double>(
-                longDirection.Value.X / multiplier,
-                longDirection.Value.Y / multiplier
+                longDirection.X / multiplier,
+                longDirection.Y / multiplier
             );
 
             return (LinesFactory.BuildLine(origin, direction), pointsCount);
         }
 
-        public (Line<long>? line, int PointsCount) FindLineFast(List<Point<long>> points)
+        public (Line<long> line, int PointsCount) FindLineFast(List<Point<long>> points)
         {
             (var origin, var direction, var pointsCount) = FindVectorFast(points);
-            if (!origin.HasValue || !direction.HasValue)
-            {
-                return (null, 0);
-            }
-
-            var line = LinesFactory.BuildLine(origin.Value, direction.Value);
+            var line = LinesFactory.BuildLine(origin, direction);
             return (line, pointsCount);
         }
 
-        private (Point<long>? Origin, Vector<long>? Direction, int PointsCount) FindVectorFast(
+        private (Point<long> Origin, Vector<long> Direction, int PointsCount) FindVectorFast(
             List<Point<long>> points)
         {
-            Point<long>? bestOrigin = null;
-            Vector<long>? bestVector = null;
-            var maxPointsOnLineCount = 0;
+            if (AllPointsAreEqual(points))
+            {
+                var origin = points.FirstOrDefault();
+                var direction = new Vector<long>(1, 1);
+                return (Origin: origin, Direction: direction, PointsCount: points.Count);
+            }
+
+            Point<long> bestOrigin = default;
+            Vector<long> bestDirection = default;
+            var maxPointsCount = 0;
 
             foreach (var origin in points)
             {
-                var originDuplicates = 0;
-                var directionsCountPerOrigin = new Dictionary<long, Dictionary<long, int>>();
-                var maxDirectionsCount = 0;
-                Vector<long>? bestDirectionForOrigin = null;
-
-                foreach (var linePoint in points)
-                {
-                    if (linePoint.IsEqual(origin))
-                    {
-                        ++originDuplicates;
-                        continue;
-                    }
-
-                    var direction = NormalizeDirection(
-                        VectorsFactory.BuildVector(origin, linePoint)
-                    );
-                    var directionsCount = AddDirectionAndGetCount(
-                        directionsCountPerOrigin,
-                        direction
-                    );
-
-                    if (directionsCount > maxDirectionsCount)
-                    {
-                        maxDirectionsCount = directionsCount;
-                        bestDirectionForOrigin = direction;
-                    }
-                }
-
-                int pointsOnLineCountForOrigin = bestDirectionForOrigin.HasValue
-                    ? maxDirectionsCount + originDuplicates
-                    : 0;
-
-                if (pointsOnLineCountForOrigin > maxPointsOnLineCount)
+                (var direction, var pointsCount) = FindDirectionWithMaxPointsCount(origin, points);
+                if (pointsCount > maxPointsCount)
                 {
                     bestOrigin = origin;
-                    bestVector = bestDirectionForOrigin;
-                    maxPointsOnLineCount = pointsOnLineCountForOrigin;
+                    bestDirection = direction;
+                    maxPointsCount = pointsCount;
                 }
             }
 
-            return (bestOrigin, bestVector, maxPointsOnLineCount);
+            return (Origin: bestOrigin, Direction: bestDirection, PointsCount: maxPointsCount);
+        }
+
+        private (Vector<long> Direction, int PointsCount) FindDirectionWithMaxPointsCount(
+            Point<long> origin,
+            List<Point<long>> points)
+        {
+            int originDuplicates = 0;
+            var pointsCountPerDirection = new Dictionary<long, Dictionary<long, int>>();
+            int maxPointsCount = 0;
+            Vector<long> bestDirection = default;
+
+            foreach (var linePoint in points)
+            {
+                if (linePoint.IsEqual(origin))
+                {
+                    ++originDuplicates;
+                    continue;
+                }
+
+                var direction = NormalizeDirection(
+                    VectorsFactory.BuildVector(origin, linePoint)
+                );
+                var pointsCount = AddDirectionAndGetPointsCount(
+                    pointsCountPerDirection,
+                    direction
+                );
+
+                if (pointsCount > maxPointsCount)
+                {
+                    maxPointsCount = pointsCount;
+                    bestDirection = direction;
+                }
+            }
+
+            return (Direction: bestDirection, PointsCount: maxPointsCount + originDuplicates);
+        }
+
+        private bool AllPointsAreAlmostEqual(List<Point<double>> points)
+        {
+            var p1 = points.FirstOrDefault();
+            return points.All((p) => p.IsAlmostEqual(p1));
+        }
+
+        private bool AllPointsAreEqual(List<Point<long>> points)
+        {
+            var p1 = points.FirstOrDefault();
+            return points.All((p) => p.IsEqual(p1));
         }
 
         private Vector<long> NormalizeDirection(Vector<long> direction)
@@ -145,7 +156,7 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             return new Vector<long>(direction.X / gcdValue, direction.Y / gcdValue);
         }
 
-        private int AddDirectionAndGetCount(
+        private int AddDirectionAndGetPointsCount(
             Dictionary<long, Dictionary<long, int>> directionsCountPerOrigin,
             Vector<long> direction)
         {
