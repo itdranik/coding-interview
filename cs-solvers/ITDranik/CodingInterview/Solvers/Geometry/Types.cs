@@ -2,7 +2,7 @@ using System;
 
 namespace ITDranik.CodingInterview.Solvers.Geometry
 {
-    public readonly struct Point<T> where T : struct
+    public class Point<T> where T : struct
     {
         public Point(T x, T y)
         {
@@ -14,7 +14,7 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
         public T Y { get; }
     }
 
-    public readonly struct Vector<T> where T : struct
+    public class Vector<T> where T : struct
     {
         public Vector(T x, T y)
         {
@@ -26,7 +26,7 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
         public T Y { get; }
     }
 
-    public readonly struct Line<T> where T : struct
+    public class Line<T> where T : struct
     {
         public Line(T a, T b, T c)
         {

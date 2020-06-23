@@ -13,12 +13,13 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
         {
             if (AllPointsAreAlmostEqual(points))
             {
-                var line = LinesFactory.BuildAnyLine(points.FirstOrDefault());
+                var point = points.FirstOrDefault() ?? new Point<double>(0, 0);
+                var line = LinesFactory.BuildAnyLine(point);
                 return (Line: line, PointsCount: points.Count);
             }
 
             var maxPointsOnLineCount = 0;
-            Line<double> bestLine = default;
+            Line<double> bestLine = new Line<double>(1, 0, 0);
 
             foreach (var firstPoint in points)
             {
@@ -80,13 +81,13 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
         {
             if (AllPointsAreEqual(points))
             {
-                var origin = points.FirstOrDefault();
+                var origin = points.FirstOrDefault() ?? new Point<long>(0, 0);
                 var direction = new Vector<long>(1, 1);
                 return (Origin: origin, Direction: direction, PointsCount: points.Count);
             }
 
-            Point<long> bestOrigin = default;
-            Vector<long> bestDirection = default;
+            Point<long> bestOrigin = new Point<long>(0, 0);
+            Vector<long> bestDirection = new Vector<long>(1, 1);
             var maxPointsCount = 0;
 
             foreach (var origin in points)
@@ -110,7 +111,7 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             int originDuplicates = 0;
             var pointsCountPerDirection = new Dictionary<long, Dictionary<long, int>>();
             int maxPointsCount = 0;
-            Vector<long> bestDirection = default;
+            Vector<long> bestDirection = new Vector<long>(1, 1);
 
             foreach (var linePoint in points)
             {
