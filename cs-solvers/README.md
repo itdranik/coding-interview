@@ -11,6 +11,8 @@ Here you can find solvers for different coding-interview problems from the `itdr
     - [Postfix Notation](#postfix-notation-calculator)
     - [Shunting-Yard Algorithm](#shunting-yard-algorithm)
     - [Tokenization](#tokenization)
+  - [Geometry](#geometry)
+    - [Max Points on a Line](#max-points-on-a-line)
 
 
 ## Caching
@@ -102,3 +104,19 @@ Blog post (
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/MathExpressions/Tokenizer.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/MathExpressions/UnitTests/TokenizerTests.cs)
+
+## Geometry
+
+This section contains different geometry problem solvers.
+
+### Max Points on a Line
+
+Find the line passing through the maximum number of points.
+
+Blog post (
+[Be](https://www.itdranik.com/be/problem-max-points-on-a-line-be),
+[Ru](https://www.itdranik.com/ru/problem-max-points-on-a-line-ru),
+[En](https://www.itdranik.com/en/problem-max-points-on-a-line-en)
+),
+[Implementation](./ITDranik/CodingInterview/Solvers/Geometry/MaxPointsOnLine.cs),
+[Tests](./ITDranik/CodingInterview/SolversTests/Geometry/MaxPointsOnLineTests.cs)
