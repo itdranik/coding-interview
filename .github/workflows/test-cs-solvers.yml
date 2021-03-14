@@ -12,7 +12,7 @@ jobs:
     - name: Setup cs-solvers
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101
+        dotnet-version: 5.0.200
     - name: Build cs-solvers
       run: dotnet build cs-solvers --configuration Release
     - name: Test cs-solvers
