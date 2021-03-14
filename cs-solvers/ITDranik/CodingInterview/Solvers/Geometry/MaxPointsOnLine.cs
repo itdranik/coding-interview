@@ -141,13 +141,13 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
 
         private bool AllPointsAreAlmostEqual(List<Point<double>> points)
         {
-            var p1 = points.FirstOrDefault();
+            var p1 = points.FirstOrDefault() ?? new Point<double>(0, 0);
             return points.All((p) => p.IsAlmostEqual(p1));
         }
 
         private bool AllPointsAreEqual(List<Point<long>> points)
         {
-            var p1 = points.FirstOrDefault();
+            var p1 = points.FirstOrDefault() ?? new Point<long>(0, 0);
             return points.All((p) => p.IsEqual(p1));
         }
 
