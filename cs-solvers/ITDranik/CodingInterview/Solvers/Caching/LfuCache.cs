@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ITDranik.CodingInterview.Solvers.Caching
 {
     internal class LfuItem<TKey, TValue>
+        where TKey: notnull
     {
         public LfuItem(TKey key, TValue value, int frequency)
         {
@@ -19,6 +21,7 @@ namespace ITDranik.CodingInterview.Solvers.Caching
     }
 
     internal class LfuFrequencyGroup<TKey, TValue>
+        where TKey: notnull
     {
         public LfuFrequencyGroup(int frequency)
         {
@@ -31,6 +34,7 @@ namespace ITDranik.CodingInterview.Solvers.Caching
     }
 
     public class LfuCache<TKey, TValue>
+        where TKey: notnull
     {
         public LfuCache(int capacity)
         {
@@ -107,7 +111,9 @@ namespace ITDranik.CodingInterview.Solvers.Caching
 
         private void Evict()
         {
+            Debug.Assert(_frequencyGroups.First != null, "Invalid LFU state");
             var lfuItemNode = _frequencyGroups.First.Value.Items.First;
+            Debug.Assert(lfuItemNode != null, "Invalid LFU state");
             Remove(lfuItemNode.Value.Key);
         }
 

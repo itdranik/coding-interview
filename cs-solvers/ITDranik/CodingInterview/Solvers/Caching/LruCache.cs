@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ITDranik.CodingInterview.Solvers.Caching
 {
     internal class LruItem<TKey, TValue>
+        where TKey: notnull
     {
         public LruItem(TKey key, TValue value)
         {
@@ -16,6 +18,7 @@ namespace ITDranik.CodingInterview.Solvers.Caching
     }
 
     public class LruCache<TKey, TValue>
+        where TKey: notnull
     {
         public LruCache(int capacity)
         {
@@ -61,6 +64,7 @@ namespace ITDranik.CodingInterview.Solvers.Caching
 
         private void Evict()
         {
+            Debug.Assert(_items.First != null, "Invalid LRU state");
             var minKey = _items.First.Value.Key;
             Remove(minKey);
         }
