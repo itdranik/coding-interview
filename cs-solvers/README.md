@@ -13,7 +13,8 @@ Here you can find solvers for different coding-interview problems from the `itdr
     - [Tokenization](#tokenization)
   - [Geometry](#geometry)
     - [Max Points on a Line](#max-points-on-a-line)
-
+  - [Game Theory](#game-theory)
+    - [Minimax](#minimax)
 
 ## Caching
 
@@ -120,3 +121,17 @@ Blog post (
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Geometry/MaxPointsOnLine.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Geometry/MaxPointsOnLineTests.cs)
+
+## Game Theory
+
+This section contains different game theory algorithms.
+
+### Minimax
+
+Minimax is an algorithm for minimizing losses when a situation goes in the worst-case scenario.
+
+Blog post (
+[Ru](https://www.itdranik.com/ru/game-theory-minimax-ru/)
+),
+[Implementation](./ITDranik/CodingInterview/Solvers/Games/AI/Minimax/Minimax.cs),
+[Tests](./ITDranik/CodingInterview/SolversTests/Games/TicTacToeMinimaxTests.cs)
