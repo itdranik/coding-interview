@@ -131,7 +131,9 @@ This section contains different game theory algorithms.
 Minimax is an algorithm for minimizing losses when a situation goes in the worst-case scenario.
 
 Blog post (
-[Ru](https://www.itdranik.com/ru/game-theory-minimax-ru/)
+[Be](https://www.itdranik.com/be/game-theory-minimax-be/),
+[Ru](https://www.itdranik.com/ru/game-theory-minimax-ru/),
+[En](https://www.itdranik.com/en/game-theory-minimax-en/)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Games/AI/Minimax/Minimax.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Games/TicTacToeMinimaxTests.cs)
