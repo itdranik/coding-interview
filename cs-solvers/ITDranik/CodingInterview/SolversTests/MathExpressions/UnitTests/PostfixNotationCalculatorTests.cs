@@ -76,12 +76,12 @@ namespace ITDranik.CodingInterview.SolversTests.MathExpressions.UnitTests
             }));
         }
 
-        private void ExpectSyntaxException(Action action)
+        private static void ExpectSyntaxException(Action action)
         {
             action.Should().ThrowExactly<SyntaxException>();
         }
 
-        private void Compare(OperandToken actual, OperandToken expected)
+        private static void Compare(OperandToken actual, OperandToken expected)
         {
             actual.Value.Should().BeApproximately(expected.Value, Precision);
         }

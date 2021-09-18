@@ -59,23 +59,13 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions
             }
         }
 
-        private bool IsOperatorCharacter(char c)
+        private static bool IsOperatorCharacter(char c) => c switch
         {
-            switch (c)
-            {
-                case '(':
-                case ')':
-                case '+':
-                case '-':
-                case '*':
-                case '/':
-                    return true;
-                default:
-                    return false;
-            }
-        }
+            var x when new char[]{'(', ')', '+', '-', '*', '/'}.Contains(x) => true,
+            _ => false
+        };
 
-        private bool IsSpacingCharacter(char c)
+        private static bool IsSpacingCharacter(char c)
         {
             return c switch
             {
@@ -84,7 +74,7 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions
             };
         }
 
-        private IToken CreateOperandToken(string raw)
+        private static IToken CreateOperandToken(string raw)
         {
             if (double.TryParse(
                 raw,
@@ -98,7 +88,7 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions
             throw new SyntaxException($"The operand {raw} has an invalid format.");
         }
 
-        private OperatorToken CreateOperatorToken(char c)
+        private static OperatorToken CreateOperatorToken(char c)
         {
             return c switch
             {

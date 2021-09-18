@@ -9,7 +9,7 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
     {
         public const int DefaultDigitsPrecision = 3;
 
-        public (Line<double> Line, int PointsCount) FindLine(List<Point<double>> points)
+        public static (Line<double> Line, int PointsCount) FindLine(List<Point<double>> points)
         {
             if (AllPointsAreAlmostEqual(points))
             {
@@ -19,7 +19,7 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             }
 
             var maxPointsOnLineCount = 0;
-            Line<double> bestLine = new Line<double>(1, 0, 0);
+            var bestLine = new Line<double>(1, 0, 0);
 
             foreach (var firstPoint in points)
             {
@@ -44,7 +44,7 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             return (Line: bestLine, PointsCount: maxPointsOnLineCount);
         }
 
-        public (Line<double> line, int PointsCount) FindLineFast(
+        public static (Line<double> line, int PointsCount) FindLineFast(
             List<Point<double>> points,
             int digitsPrecision = DefaultDigitsPrecision)
         {
@@ -69,14 +69,14 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             return (LinesFactory.BuildLine(origin, direction), pointsCount);
         }
 
-        public (Line<long> line, int PointsCount) FindLineFast(List<Point<long>> points)
+        public static (Line<long> line, int PointsCount) FindLineFast(List<Point<long>> points)
         {
             (var origin, var direction, var pointsCount) = FindVectorFast(points);
             var line = LinesFactory.BuildLine(origin, direction);
             return (line, pointsCount);
         }
 
-        private (Point<long> Origin, Vector<long> Direction, int PointsCount) FindVectorFast(
+        private static (Point<long> Origin, Vector<long> Direction, int PointsCount) FindVectorFast(
             List<Point<long>> points)
         {
             if (AllPointsAreEqual(points))
@@ -86,8 +86,8 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
                 return (Origin: origin, Direction: direction, PointsCount: points.Count);
             }
 
-            Point<long> bestOrigin = new Point<long>(0, 0);
-            Vector<long> bestDirection = new Vector<long>(1, 1);
+            var bestOrigin = new Point<long>(0, 0);
+            var bestDirection = new Vector<long>(1, 1);
             var maxPointsCount = 0;
 
             foreach (var origin in points)
@@ -104,14 +104,14 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             return (Origin: bestOrigin, Direction: bestDirection, PointsCount: maxPointsCount);
         }
 
-        private (Vector<long> Direction, int PointsCount) FindDirectionWithMaxPointsCount(
+        private static (Vector<long> Direction, int PointsCount) FindDirectionWithMaxPointsCount(
             Point<long> origin,
             List<Point<long>> points)
         {
             int originDuplicates = 0;
             var pointsCountPerDirection = new Dictionary<long, Dictionary<long, int>>();
             int maxPointsCount = 0;
-            Vector<long> bestDirection = new Vector<long>(1, 1);
+            var bestDirection = new Vector<long>(1, 1);
 
             foreach (var linePoint in points)
             {
@@ -139,25 +139,25 @@ namespace ITDranik.CodingInterview.Solvers.Geometry
             return (Direction: bestDirection, PointsCount: maxPointsCount + originDuplicates);
         }
 
-        private bool AllPointsAreAlmostEqual(List<Point<double>> points)
+        private static bool AllPointsAreAlmostEqual(List<Point<double>> points)
         {
             var p1 = points.FirstOrDefault() ?? new Point<double>(0, 0);
             return points.All((p) => p.IsAlmostEqual(p1));
         }
 
-        private bool AllPointsAreEqual(List<Point<long>> points)
+        private static bool AllPointsAreEqual(List<Point<long>> points)
         {
             var p1 = points.FirstOrDefault() ?? new Point<long>(0, 0);
             return points.All((p) => p.IsEqual(p1));
         }
 
-        private Vector<long> NormalizeDirection(Vector<long> direction)
+        private static Vector<long> NormalizeDirection(Vector<long> direction)
         {
             long gcdValue = Arithmetic.GCD(direction.X, direction.Y);
             return new Vector<long>(direction.X / gcdValue, direction.Y / gcdValue);
         }
 
-        private int AddDirectionAndGetPointsCount(
+        private static int AddDirectionAndGetPointsCount(
             Dictionary<long, Dictionary<long, int>> directionsCountPerOrigin,
             Vector<long> direction)
         {
