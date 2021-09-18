@@ -15,6 +15,9 @@ Here you can find solvers for different coding-interview problems from the `itdr
     - [Max Points on a Line](#max-points-on-a-line)
   - [Game Theory](#game-theory)
     - [Minimax](#minimax)
+  - [Graphs](#graphs)
+    - [Cycles Checker](#cycles-checker)
+    - [Topological Sort](#topological-sort)
 
 ## Caching
 
@@ -51,7 +54,7 @@ Blog post (
 ### LFU Algorithm
 
 **LFU (least frequently used)** is the strategy of discarding an element that has been least used.
-This element is the element that has beeb accessed by a key (methods of adding and receiving values)
+This element is the element that has been accessed by a key (methods of adding and receiving values)
 the least number of times. If there are several such elements, then the element that has not been
 accessed the longest is discarded.
 
@@ -137,3 +140,32 @@ Blog post (
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Games/AI/Minimax/Minimax.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Games/TicTacToeMinimaxTests.cs)
+
+## Graphs
+
+This section contains different graphs algorithms.
+
+### Cycles Checker
+
+An auxiliary class for checking a graph for the presence of cycles.
+
+Blog post (
+[Be](https://www.itdranik.com/be/graphs-cycles-checker-be/),
+[Ru](https://www.itdranik.com/ru/graphs-cycles-checker-ru/),
+[En](https://www.itdranik.com/en/graphs-cycles-checker-en/)
+),
+[Implementation](./ITDranik/CodingInterview/Solvers/Graphs/DigraphHasCyclesCheck.cs),
+[Tests](./ITDranik/CodingInterview/SolversTests/Graphs/DigraphHasCyclesCheckTests.cs)
+
+### Topological Sort
+
+Topological sort is a linear ordering of graph vertices where each vertex _u_ comes before a
+vertex _v_ if there is a directed edge _uv_ from the vertex _u_ to the vertex _v_.
+
+Blog post (
+[Be](https://www.itdranik.com/be/graphs-topological-sort-be/),
+[Ru](https://www.itdranik.com/ru/graphs-topological-sort-ru/),
+[En](https://www.itdranik.com/en/graphs-topological-sort-en/)
+),
+[Implementation](./ITDranik/CodingInterview/Solvers/Graphs/DigraphTopologicalSort.cs),
+[Tests](./ITDranik/CodingInterview/SolversTests/Graphs/DigraphTopologicalSortTests.cs)
