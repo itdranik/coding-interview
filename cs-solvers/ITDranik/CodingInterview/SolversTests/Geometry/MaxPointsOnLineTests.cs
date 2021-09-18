@@ -12,12 +12,10 @@ namespace ITDranik.CodingInterview.SolversTests.Geometry
     {
         public static IEnumerable<object[]> GetSolvers()
         {
-            var solver = new MaxPointsOnLine();
-
-            SolverMethod findLine = (points) => solver.FindLine(points);
+            SolverMethod findLine = (points) => MaxPointsOnLine.FindLine(points);
             yield return new object[] { findLine };
 
-            SolverMethod findLineFast = (points) => solver.FindLineFast(points);
+            SolverMethod findLineFast = (points) => MaxPointsOnLine.FindLineFast(points);
             yield return new object[] { findLineFast };
         }
 

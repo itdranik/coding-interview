@@ -117,7 +117,7 @@ namespace ITDranik.CodingInterview.Solvers.MathExpressions
             _operatorsStack.Push(operatorToken);
         }
 
-        private int GetOperatorPriority(OperatorToken operatorToken)
+        private static int GetOperatorPriority(OperatorToken operatorToken)
         {
             switch (operatorToken.OperatorType)
             {

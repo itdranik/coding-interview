@@ -55,7 +55,7 @@ namespace ITDranik.CodingInterview.SolversTests.MathExpressions.UnitTests
             action.Should().ThrowExactly<SyntaxException>();
         }
 
-        private void Compare(IEnumerable<IToken> actual, IEnumerable<IToken> expected)
+        private static void Compare(IEnumerable<IToken> actual, IEnumerable<IToken> expected)
         {
             actual.Should().BeEquivalentTo(expected,
                 opts => opts.RespectingRuntimeTypes().WithStrictOrdering()
