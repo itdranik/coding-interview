@@ -1,20 +1,20 @@
 Here you can find solvers for different coding-interview problems from the `itdranik` blog (
-[Be](https://www.itdranik.com/be/topics/coding-interview-be),
-[Ru](https://www.itdranik.com/ru/topics/coding-interview-ru),
-[En](https://www.itdranik.com/en/topics/coding-interview-en)
+[Be](https://www.itdranik.com/be/categories/coding-interview),
+[Ru](https://www.itdranik.com/ru/categories/coding-interview),
+[En](https://www.itdranik.com/en/categories/coding-interview)
 ) in C#.
 
-  - [Caching](#caching)
-    - [LFU Algorithm](#lfu-algorithm)
-    - [LRU Algorithm](#lru-algorithm)
-  - [Parsing Mathematical Expressions](#parsing-mathematical-expressions)
-    - [Postfix Notation](#postfix-notation-calculator)
-    - [Shunting-Yard Algorithm](#shunting-yard-algorithm)
-    - [Tokenization](#tokenization)
-  - [Geometry](#geometry)
-    - [Max Points on a Line](#max-points-on-a-line)
-  - [Game Theory](#game-theory)
-    - [Minimax](#minimax)
+- [Caching](#caching)
+  - [LRU Algorithm](#lru-algorithm)
+  - [LFU Algorithm](#lfu-algorithm)
+- [Parsing Mathematical Expressions](#parsing-mathematical-expressions)
+  - [Postfix Notation Calculator](#postfix-notation-calculator)
+  - [Shunting-Yard Algorithm](#shunting-yard-algorithm)
+  - [Tokenization](#tokenization)
+- [Geometry](#geometry)
+  - [Max Points on a Line](#max-points-on-a-line)
+- [Game Theory](#game-theory)
+  - [Minimax](#minimax)
 
 ## Caching
 
@@ -41,9 +41,9 @@ longest. It is the element that hasn't been accessed by a key the longest (metho
 receiving a value).
 
 Blog post (
-[Be](https://www.itdranik.com/be/caching-lru-algorithm-be),
-[Ru](https://www.itdranik.com/ru/caching-lru-algorithm-ru),
-[En](https://www.itdranik.com/en/caching-lru-algorithm-en)
+[Be](https://www.itdranik.com/be/caching-lru-algorithm),
+[Ru](https://www.itdranik.com/ru/caching-lru-algorithm),
+[En](https://www.itdranik.com/en/caching-lru-algorithm)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Caching/LruCache.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Caching/LruCacheTests.cs)
@@ -56,9 +56,9 @@ the least number of times. If there are several such elements, then the element 
 accessed the longest is discarded.
 
 Blog post (
-[Be](https://www.itdranik.com/be/caching-lfu-algorithm-be),
-[Ru](https://www.itdranik.com/ru/caching-lfu-algorithm-ru),
-[En](https://www.itdranik.com/en/caching-lfu-algorithm-en)
+[Be](https://www.itdranik.com/be/caching-lfu-algorithm),
+[Ru](https://www.itdranik.com/ru/caching-lfu-algorithm),
+[En](https://www.itdranik.com/en/caching-lfu-algorithm)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Caching/LfuCache.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Caching/LfuCacheTests.cs)
@@ -74,9 +74,9 @@ for more information please.
 A simple calculator that accepts a sequence of operators and operands in the postfix notation.
 
 Blog post (
-[Be](https://www.itdranik.com/be/math-expressions-postfix-notation-be),
-[Ru](https://www.itdranik.com/ru/math-expressions-postfix-notation-ru),
-[En](https://www.itdranik.com/en/math-expressions-postfix-notation-en)
+[Be](https://www.itdranik.com/be/math-expressions-postfix-notation),
+[Ru](https://www.itdranik.com/ru/math-expressions-postfix-notation),
+[En](https://www.itdranik.com/en/math-expressions-postfix-notation)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/MathExpressions/PostfixNotationCalculator.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/MathExpressions/UnitTests/PostfixNotationCalculatorTests.cs)
@@ -86,9 +86,9 @@ Blog post (
 A special algorithm for converting from the infix notation to the postfix notation.
 
 Blog post (
-[Be](https://www.itdranik.com/be/math-expressions-shunting-yard-algorithm-be),
-[Ru](https://www.itdranik.com/ru/math-expressions-shunting-yard-algorithm-ru),
-[En](https://www.itdranik.com/en/math-expressions-shunting-yard-algorithm-en)
+[Be](https://www.itdranik.com/be/math-expressions-shunting-yard-algorithm),
+[Ru](https://www.itdranik.com/ru/math-expressions-shunting-yard-algorithm),
+[En](https://www.itdranik.com/en/math-expressions-shunting-yard-algorithm)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/MathExpressions/ShuntingYardAlgorithm.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/MathExpressions/UnitTests/ShuntingYardAlgorithmTests.cs)
@@ -99,9 +99,9 @@ A special class that converts input provided as a string to a sequence of operat
 in the infix notation.
 
 Blog post (
-[Be](https://www.itdranik.com/be/math-expressions-tokenization-be),
-[Ru](https://www.itdranik.com/ru/math-expressions-tokenization-ru),
-[En](https://www.itdranik.com/en/math-expressions-tokenization-en)
+[Be](https://www.itdranik.com/be/math-expressions-tokenization),
+[Ru](https://www.itdranik.com/ru/math-expressions-tokenization),
+[En](https://www.itdranik.com/en/math-expressions-tokenization)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/MathExpressions/Tokenizer.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/MathExpressions/UnitTests/TokenizerTests.cs)
@@ -115,9 +115,9 @@ This section contains different geometry problem solvers.
 Find the line passing through the maximum number of points.
 
 Blog post (
-[Be](https://www.itdranik.com/be/problem-max-points-on-a-line-be),
-[Ru](https://www.itdranik.com/ru/problem-max-points-on-a-line-ru),
-[En](https://www.itdranik.com/en/problem-max-points-on-a-line-en)
+[Be](https://www.itdranik.com/be/problem-max-points-on-a-line),
+[Ru](https://www.itdranik.com/ru/problem-max-points-on-a-line),
+[En](https://www.itdranik.com/en/problem-max-points-on-a-line)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Geometry/MaxPointsOnLine.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Geometry/MaxPointsOnLineTests.cs)
@@ -131,9 +131,9 @@ This section contains different game theory algorithms.
 Minimax is an algorithm for minimizing losses when a situation goes in the worst-case scenario.
 
 Blog post (
-[Be](https://www.itdranik.com/be/game-theory-minimax-be/),
-[Ru](https://www.itdranik.com/ru/game-theory-minimax-ru/),
-[En](https://www.itdranik.com/en/game-theory-minimax-en/)
+[Be](https://www.itdranik.com/be/game-theory-minimax/),
+[Ru](https://www.itdranik.com/ru/game-theory-minimax/),
+[En](https://www.itdranik.com/en/game-theory-minimax/)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Games/AI/Minimax/Minimax.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Games/TicTacToeMinimaxTests.cs)
