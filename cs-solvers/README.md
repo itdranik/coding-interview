@@ -1,7 +1,7 @@
 Here you can find solvers for different coding-interview problems from the `itdranik` blog (
 [Be](https://www.itdranik.com/be/categories/coding-interview),
 [Ru](https://www.itdranik.com/ru/categories/coding-interview),
-[En](https://www.itdranik.com/en/categories/coding-interview)
+[En](https://www.itdranik.com/categories/coding-interview)
 ) in C#.
 
 - [Caching](#caching)
@@ -43,7 +43,7 @@ receiving a value).
 Blog post (
 [Be](https://www.itdranik.com/be/post/caching-lru-algorithm),
 [Ru](https://www.itdranik.com/ru/post/caching-lru-algorithm),
-[En](https://www.itdranik.com/en/post/caching-lru-algorithm)
+[En](https://www.itdranik.com/post/caching-lru-algorithm)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Caching/LruCache.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Caching/LruCacheTests.cs)
@@ -58,7 +58,7 @@ accessed the longest is discarded.
 Blog post (
 [Be](https://www.itdranik.com/be/post/caching-lfu-algorithm),
 [Ru](https://www.itdranik.com/ru/post/caching-lfu-algorithm),
-[En](https://www.itdranik.com/en/post/caching-lfu-algorithm)
+[En](https://www.itdranik.com/post/caching-lfu-algorithm)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Caching/LfuCache.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Caching/LfuCacheTests.cs)
@@ -76,7 +76,7 @@ A simple calculator that accepts a sequence of operators and operands in the pos
 Blog post (
 [Be](https://www.itdranik.com/be/post/math-expressions-postfix-notation),
 [Ru](https://www.itdranik.com/ru/post/math-expressions-postfix-notation),
-[En](https://www.itdranik.com/en/post/math-expressions-postfix-notation)
+[En](https://www.itdranik.com/post/math-expressions-postfix-notation)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/MathExpressions/PostfixNotationCalculator.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/MathExpressions/UnitTests/PostfixNotationCalculatorTests.cs)
@@ -88,7 +88,7 @@ A special algorithm for converting from the infix notation to the postfix notati
 Blog post (
 [Be](https://www.itdranik.com/be/post/math-expressions-shunting-yard-algorithm),
 [Ru](https://www.itdranik.com/ru/post/math-expressions-shunting-yard-algorithm),
-[En](https://www.itdranik.com/en/post/math-expressions-shunting-yard-algorithm)
+[En](https://www.itdranik.com/post/math-expressions-shunting-yard-algorithm)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/MathExpressions/ShuntingYardAlgorithm.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/MathExpressions/UnitTests/ShuntingYardAlgorithmTests.cs)
@@ -101,7 +101,7 @@ in the infix notation.
 Blog post (
 [Be](https://www.itdranik.com/be/post/math-expressions-tokenization),
 [Ru](https://www.itdranik.com/ru/post/math-expressions-tokenization),
-[En](https://www.itdranik.com/en/post/math-expressions-tokenization)
+[En](https://www.itdranik.com/post/math-expressions-tokenization)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/MathExpressions/Tokenizer.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/MathExpressions/UnitTests/TokenizerTests.cs)
@@ -117,7 +117,7 @@ Find the line passing through the maximum number of points.
 Blog post (
 [Be](https://www.itdranik.com/be/post/problem-max-points-on-a-line),
 [Ru](https://www.itdranik.com/ru/post/problem-max-points-on-a-line),
-[En](https://www.itdranik.com/en/post/problem-max-points-on-a-line)
+[En](https://www.itdranik.com/post/problem-max-points-on-a-line)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Geometry/MaxPointsOnLine.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Geometry/MaxPointsOnLineTests.cs)
@@ -133,7 +133,7 @@ Minimax is an algorithm for minimizing losses when a situation goes in the worst
 Blog post (
 [Be](https://www.itdranik.com/be/post/game-theory-minimax/),
 [Ru](https://www.itdranik.com/ru/post/game-theory-minimax/),
-[En](https://www.itdranik.com/en/post/game-theory-minimax/)
+[En](https://www.itdranik.com/post/game-theory-minimax/)
 ),
 [Implementation](./ITDranik/CodingInterview/Solvers/Games/AI/Minimax/Minimax.cs),
 [Tests](./ITDranik/CodingInterview/SolversTests/Games/TicTacToeMinimaxTests.cs)
