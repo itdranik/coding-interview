@@ -1,6 +1,6 @@
 Here you can find solvers for different coding-interview problems from the `itdranik` blog (
 [Be](https://www.itdranik.com/be/categories/coding-interview),
-[Ru](https://www.itdranik.com/ru/post/categories/coding-interview),
+[Ru](https://www.itdranik.com/ru/categories/coding-interview),
 [En](https://www.itdranik.com/en/categories/coding-interview)
 ) in C#.
 
